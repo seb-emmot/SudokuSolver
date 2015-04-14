@@ -37,7 +37,7 @@ public class InterfaceGUI implements Observer {
 		
 		this.gs = TheGS;
 		
-		frame = new JFrame("Sudoku Solver v.0.1");
+		frame = new JFrame("Sudoku Solver v.0.8");
 		mainPanel = new JPanel();
 		numberPanel = new NumberPanel(gs.getGrid());
 		
@@ -51,12 +51,13 @@ public class InterfaceGUI implements Observer {
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+		gs.getGrid().addObserver(this);
 	    
 	}
 	
 	
 	public void update(Observable arg0, Object arg1) {
-		
+		numberPanel.repaint();
 	}
 	
 	
@@ -80,7 +81,6 @@ public class InterfaceGUI implements Observer {
 		}
 		
 		private void drawGrid(Graphics g) {
-			System.out.println("FUCK OFF");
 			g.setColor(Color.BLACK);
 			for(int xMain=0; xMain<SIZE; xMain++) {
 				for(int yMain=0; yMain<SIZE; yMain++) {
@@ -88,7 +88,9 @@ public class InterfaceGUI implements Observer {
 						for(int y=0; y<SIZE; y++) {
 							g.drawRect(((xMain*PIXEL_SIZE*3)+(x*PIXEL_SIZE)), ((yMain*PIXEL_SIZE*3)+(y*PIXEL_SIZE)), PIXEL_SIZE, PIXEL_SIZE);
 							//System.out.println(sg.getNumber(xMain, yMain, x, y));
-							g.drawString(Integer.toString(sg.getNumber(xMain, yMain, x, y)), ((xMain*PIXEL_SIZE*3)+(x*PIXEL_SIZE)+5), ((yMain*PIXEL_SIZE*3)+(y*PIXEL_SIZE)+15));
+							if(sg.getNumber(xMain, yMain, x, y) > 0) {
+								g.drawString(Integer.toString(sg.getNumber(xMain, yMain, x, y)), ((xMain*PIXEL_SIZE*3)+(x*PIXEL_SIZE)+5), ((yMain*PIXEL_SIZE*3)+(y*PIXEL_SIZE)+15));	
+							}							
 						}
 					}
 				}
