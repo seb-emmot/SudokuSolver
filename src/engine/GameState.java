@@ -9,7 +9,7 @@ public class GameState {
 	}
 	
 	public SudokuGrid getGrid() {
-		return grid;
+		return grid; // returns grid
 		
 	}
 }

@@ -28,10 +28,7 @@ public class InterfaceGUI implements Observer {
 
 	private JFrame frame;
 	private JPanel mainPanel;
-	private JPanel buttonsPanel;
-	private Display displayPanel;
-	
-	private JButton newGameButton;
+	private JPanel numberPanel;
 	
 	
 	public InterfaceGUI(GameState TheGS) {
@@ -42,27 +39,18 @@ public class InterfaceGUI implements Observer {
 		
 		frame = new JFrame("Sudoku Solver v.0.1");
 		mainPanel = new JPanel();
-		buttonsPanel = new JPanel();
-		displayPanel = new Display(gs.getGrid());
-		newGameButton = new JButton("New");
+		numberPanel = new NumberPanel(gs.getGrid());
 		
 		frame.add(mainPanel);
 		frame.setContentPane(mainPanel);
-		mainPanel.add(displayPanel);
-		mainPanel.add(buttonsPanel);
+		mainPanel.add(numberPanel);
 		
-		buttonsPanel.add(newGameButton);
-		
-
-	    
-	    
 		frame.pack();
 		frame.setLocation(0, 0);
 		frame.setSize(800, 800);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		displayPanel.repaint();    
 	    
 	}
 	
@@ -72,75 +60,51 @@ public class InterfaceGUI implements Observer {
 	}
 	
 	
-	public class Display extends JPanel {
-
-		private static final long serialVersionUID = 1L;
-
-		private static final int PADDING = 20;
-
-		private SudokuGrid grid;		
-
-		public Display(SudokuGrid sg) {
-			this.grid = sg;
-			this.setSize(400, 400);
-		}
-
-		public void paintComponent(Graphics g) {
-			super.paintComponent(g);
-			drawSubSquare(g);
+	public class NumberPanel extends JPanel {		
+		
+		private SudokuGrid sg;
+		private static final int SIZE = 3;
+		private static final int PIXEL_SIZE = 20;
+		
+		public NumberPanel(SudokuGrid sg) {
+			this.sg = sg;
+			Dimension d = new Dimension(500, 500);
+			this.setMinimumSize(d);
+			this.setPreferredSize(d);
 		}
 		
-		private void drawSubSquare(Graphics g) {
-			int padderX = 0;
-			int padderY = 0;
-			for(int numOfSub=0; numOfSub<9; numOfSub++) { //loops through all 3x3 "subsquares
-				switch(numOfSub) {
-				case 0:
-					padderX = 0;
-					padderY = 0;
-					break;
-				case 1:
-					padderX = 0;
-					padderY = 1;
-					break;
-				case 2:
-					padderX = 0;
-					padderY = 2;
-					break;
-				case 3:
-					padderX = 1;
-					padderY = 0;
-					break;
-				case 4:
-					padderX = 1;
-					padderY = 1;
-					break;
-				case 5:
-					padderX = 1;
-					padderY = 2;
-					break;
-				case 6:
-					padderX = 2;
-					padderY = 0;
-					break;
-				case 7:
-					padderX = 2;
-					padderY = 1;
-					break;
-				case 8:
-					padderX = 2;
-					padderY = 2;
-					break;
-				default:
-					break;
-				}
-				for(int posX=0; posX<3; posX++) { //loops through all 9 positions in each subsquare
-					for(int posY=0; posY<3; posY++) {
-						g.setColor(Color.BLACK);
-						g.drawRect(((padderX*PADDING*3)+(posX*PADDING)), ((padderY*PADDING*3)+(posY*PADDING)), 20, 20);
-
+		public void paintComponent(Graphics g) {
+			super.paintComponent(g);
+			drawGrid(g);
+			drawOverlay(g);
+		}
+		
+		private void drawGrid(Graphics g) {
+			System.out.println("FUCK OFF");
+			g.setColor(Color.BLACK);
+			for(int xMain=0; xMain<SIZE; xMain++) {
+				for(int yMain=0; yMain<SIZE; yMain++) {
+					for(int x=0; x<SIZE; x++) {
+						for(int y=0; y<SIZE; y++) {
+							g.drawRect(((xMain*PIXEL_SIZE*3)+(x*PIXEL_SIZE)), ((yMain*PIXEL_SIZE*3)+(y*PIXEL_SIZE)), PIXEL_SIZE, PIXEL_SIZE);
+							//System.out.println(sg.getNumber(xMain, yMain, x, y));
+							g.drawString(Integer.toString(sg.getNumber(xMain, yMain, x, y)), ((xMain*PIXEL_SIZE*3)+(x*PIXEL_SIZE)+5), ((yMain*PIXEL_SIZE*3)+(y*PIXEL_SIZE)+15));
+						}
 					}
 				}
+			}
+		}
+		
+		private void drawOverlay(Graphics g) {
+			g.setColor(Color.BLACK);
+			for(int xMain=0; xMain<=SIZE; xMain++) {
+				g.drawLine((xMain*PIXEL_SIZE*SIZE)+1, 0, (xMain*PIXEL_SIZE*SIZE)+1, SIZE*PIXEL_SIZE*SIZE);
+				g.drawLine((xMain*PIXEL_SIZE*SIZE)-1, 0, (xMain*PIXEL_SIZE*SIZE)-1, SIZE*PIXEL_SIZE*SIZE);
+			}
+			for(int yMain=0; yMain<=SIZE; yMain++) {
+				g.drawLine(0, (yMain*PIXEL_SIZE*SIZE)+1, SIZE*PIXEL_SIZE*SIZE, (yMain*PIXEL_SIZE*SIZE)+1);
+				g.drawLine(0, (yMain*PIXEL_SIZE*SIZE)-1, SIZE*PIXEL_SIZE*SIZE, (yMain*PIXEL_SIZE*SIZE)-1);
+
 			}
 		}
 	}
