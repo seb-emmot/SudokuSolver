@@ -17,9 +17,12 @@ public class Solver {
 	private int POSy;
 	
 	private boolean LastSpot = false;
+	
+	private int lapseCounter;
 
 	
 	public Solver() {
+		this.lapseCounter = 0;
 	}
 	
 	public int Solve(SudokuGrid sg) {
@@ -28,6 +31,7 @@ public class Solver {
 		int i= 0;
 		while(haveBeenModified) {
 				System.out.println("lapse");
+				this.lapseCounter++;
 				haveBeenModified = false;
 				
 				for(int numberToCheck = 1; numberToCheck <=9; numberToCheck++) {  //checks all positions for 1 number, then continues
@@ -73,11 +77,18 @@ public class Solver {
 			i++;
 		}
 
-		System.out.println(computations);
+		System.out.println("total computations : "+this.computations);
+		System.out.println("lapse : "+this.lapseCounter);
 		System.out.println("End");
 		return 0;
 	}
-	
+	/*
+	 * Checks if a number can be placed in the specified "subsquare".
+	 * - does the number already exist in subsquare?
+	 * - do the number collide with same number in X or Y (in other squares)
+	 * - is there only 1 spot left in X/Y or subsquare?
+	 * 		if this is the case, set this.Lastspot to true.
+	 */
 	private boolean canBePlaced(int numberToCheck, int xMain, int yMain) {
 		int possiblePositions = 0;
 		
@@ -107,6 +118,10 @@ public class Solver {
 		}
 	}
 	
+	/*
+	 * Checks if specified singular position can hold numberToCheck
+	 * - does the number already exist in subsquare?
+	 */
 	private boolean canBePlacedSubSquare(int numberToCheck, int xMain, int yMain, int x, int y) {
 		
 		if(doesNumberExist(numberToCheck, xMain, yMain) == false) { //checks if the current number exists in current "subsquare"	

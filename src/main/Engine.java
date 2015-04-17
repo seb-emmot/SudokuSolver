@@ -69,9 +69,21 @@ public class Engine {
 				{0, 0, 3, 0, 0, 0, 0, 2, 0},
 				{5, 7, 0, 3, 0, 0, 0, 0, 0},
 		};
+		int source5[][] = new int[][] {
+				{8, 9, 4, 0, 0, 5, 0, 0, 0},
+				{0, 1, 0, 0, 6, 0, 0, 0, 5},
+				{6, 0, 5, 0, 0, 4, 1, 0, 3},
+				{0, 0, 0, 0, 2, 7, 0, 3, 0},
+				{2, 0, 9, 0, 1, 0, 5, 0, 7},
+				{0, 3, 0, 5, 9, 0, 0, 0, 0},
+				{9, 0, 2, 7, 0, 0, 3, 0, 4},
+				{5, 0, 0, 0, 4, 0, 0, 2, 0},
+				{0, 0, 0, 6, 0, 0, 9, 5, 1},
+		};
+		
 		
 		System.out.println("hello");
-		SudokuGrid sudokuGrid = new SudokuGrid(source1);
+		SudokuGrid sudokuGrid = new SudokuGrid(source5);
 		GameState gs = new GameState(sudokuGrid);
 		new InterfaceGUI(gs);
 		gs.Solve();
