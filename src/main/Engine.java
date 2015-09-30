@@ -69,7 +69,7 @@ public class Engine {
 				{0, 0, 3, 0, 0, 0, 0, 2, 0},
 				{5, 7, 0, 3, 0, 0, 0, 0, 0},
 		};
-		int source5[][] = new int[][] {
+		int source5[][] = new int[][] { //solves this too, 0.9
 				{8, 9, 4, 0, 0, 5, 0, 0, 0},
 				{0, 1, 0, 0, 6, 0, 0, 0, 5},
 				{6, 0, 5, 0, 0, 4, 1, 0, 3},
@@ -83,11 +83,8 @@ public class Engine {
 		
 		
 		System.out.println("hello");
-<<<<<<< HEAD
-		SudokuGrid sudokuGrid = new SudokuGrid(source4);
-=======
+
 		SudokuGrid sudokuGrid = new SudokuGrid(source5);
->>>>>>> origin/Solver
 		GameState gs = new GameState(sudokuGrid);
 		new InterfaceGUI(gs);
 		gs.Solve();
