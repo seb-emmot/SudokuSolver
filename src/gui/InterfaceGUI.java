@@ -29,6 +29,7 @@ public class InterfaceGUI implements Observer {
 	private JFrame frame;
 	private JPanel mainPanel;
 	private JPanel numberPanel;
+	private JButton stepButton;
 	
 	
 	public InterfaceGUI(GameState TheGS) {
@@ -40,10 +41,13 @@ public class InterfaceGUI implements Observer {
 		frame = new JFrame("Sudoku Solver v.0.8");
 		mainPanel = new JPanel();
 		numberPanel = new NumberPanel(gs.getGrid());
+		stepButton = new JButton("Step");
+		
 		
 		frame.add(mainPanel);
 		frame.setContentPane(mainPanel);
 		mainPanel.add(numberPanel);
+		mainPanel.add(stepButton);
 		
 		frame.pack();
 		frame.setLocation(0, 0);
