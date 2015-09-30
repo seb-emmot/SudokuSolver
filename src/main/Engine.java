@@ -7,7 +7,7 @@ import gui.InterfaceGUI;
 public class Engine {
 	public static void main(String[] args) {
 		
-		int source1[][] = new int[][] { // Land - solved correctly
+		int source1[][] = new int[][] { // Land - solved correctly 0.8
 				{8, 0, 4, 1, 0, 0, 0, 0, 2},
 				{0, 0, 0, 4, 3, 2, 0, 1, 0},
 				{0, 2, 0, 8, 0, 0, 9, 3, 0},
@@ -19,7 +19,7 @@ public class Engine {
 				{2, 0, 0, 0, 0, 3, 5, 0, 6},
 		};
 		
-		int source2[][] = new int[][] { //Land - solved INcorrectly
+		int source2[][] = new int[][] { //Land - solved INcorrectly !! Correctly as of 0.9
 				{0, 9, 0, 7, 0, 8, 0, 0, 6},
 				{0, 7, 6, 1, 0, 0, 0, 0, 4},
 				{2, 0, 0, 6, 0, 3, 0, 0, 0},
@@ -46,7 +46,7 @@ public class Engine {
 		};
 */
 		
-		int source3[][] = new int[][] { // from the web - solved correctly (easy
+		int source3[][] = new int[][] { // from the web - solved correctly (easy 0.8
 				{0, 0, 0, 5, 0, 2, 4, 0, 0},
 				{3, 0, 0, 0, 0, 0, 2, 9, 0},
 				{5, 2, 1, 7, 9, 0, 0, 6, 0},
@@ -71,7 +71,7 @@ public class Engine {
 		};
 		
 		System.out.println("hello");
-		SudokuGrid sudokuGrid = new SudokuGrid(source1);
+		SudokuGrid sudokuGrid = new SudokuGrid(source4);
 		GameState gs = new GameState(sudokuGrid);
 		new InterfaceGUI(gs);
 		gs.Solve();

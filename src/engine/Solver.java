@@ -78,6 +78,37 @@ public class Solver {
 		return 0;
 	}
 	
+	private boolean onlyPlaceInRow(int numberToCheck, int xMain, int yMain, int x, int y) { //checks if the current number can only have 1 place in the examined "row"
+		int possiblePositions = 0;
+		for(int i=0; i<3; i++) {
+			for(int j=0; j<3; j++) {
+				if(canBePlacedSubSquare(numberToCheck, xMain, i, x, j)) {
+					possiblePositions++;
+				}
+			}
+		}
+		if(possiblePositions == 1) {
+			return true;
+		}
+		else {
+			possiblePositions = 0;
+			for(int i=0; i<3; i++) {
+				for(int j=0; j<3; j++) {
+					if(canBePlacedSubSquare(numberToCheck, i, yMain, j, y)) {
+						possiblePositions++;
+					}
+				}
+			}
+			if(possiblePositions == 1) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+	}
+	
+	
 	private boolean canBePlaced(int numberToCheck, int xMain, int yMain) {
 		int possiblePositions = 0;
 		
@@ -88,13 +119,19 @@ public class Solver {
 						possiblePositions++;
 						POSx = x;
 						POSy = y;
+						/*
+						 * If the number to check only can be placed at current location in the row (x OR y) "onlyPlaceInRow" returns true
+						 */
+						if(onlyPlaceInRow(numberToCheck, xMain, yMain, x, y) == true) {
+							this.LastSpot = true;
+						}
 						if(this.LastSpot == true) {
 							this.LastSpot = false;
 							return true;
 						}
-						if(possiblePositions > 1) {
+						/*if(possiblePositions > 1) {
 							return false;
-						}
+						}*/
 					}
 				}
 			}
